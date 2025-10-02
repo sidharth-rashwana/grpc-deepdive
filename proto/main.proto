@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package deepdive;
+
+option go_package = "/proto/gen;mainpb";
+
+service Deepdive{
+    rpc Add(AddRequest) returns(AddResponse); // unary 
+    rpc GenerateFibonacci (FibonacciRequest) returns(stream FibonacciResponse); // server stream
+    rpc SendNumbers(stream NumberRequest) returns(NumberResponse); // client stream
+    rpc Chat(stream ChatMessage) returns(stream ChatMessage); // bidirectional stream
+}
+
+message NumberRequest{
+    int32 number = 1;
+}
+
+message NumberResponse{
+    int32 sum = 2;
+}
+message AddRequest{
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message AddResponse{
+    int32 sum=1;
+}
+
+message FibonacciRequest{
+    int32 n = 1;
+}
+
+message FibonacciResponse{
+    int32 number = 1;
+}
+
+message ChatMessage{
+    string message = 1;
+}
